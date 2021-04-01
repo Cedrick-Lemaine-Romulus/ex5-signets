@@ -1,0 +1,65 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+      /************************************ Règles pour l'exercice 3 ************************/
+    match /ex3-produits/{document=**} {
+        allow read;
+    }
+   
+    /************************************ Règles pour l'exercice 4 ************************/
+    // Collection 'utilisateurs-ex4' : documents enfants (id d'utilisateur)
+    match /utilisateurs-ex4/{identifiantUtilisateur} {
+        allow read, update, delete: if request.auth != null && request.auth.uid == identifiantUtilisateur;
+      allow create: if request.auth != null
+    }
+    // Collection 'utilisateurs-ex4' : dossiers
+    match /utilisateurs-ex4/{idUtil}/dossiers/{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == idUtil;
+    }
+    // Collection 'signets-ex4' (pas utilisée en classe ni dans les évaluations)
+    // match /signets-ex4 {
+    //     allow read, create: if request.auth != null;
+    // }
+   
+    /*********************** Règles pour les prototypes développés en classe ****************/
+    // Règles pour le panier d'achats
+    match /produits/{document=**} {
+        allow read;
+    }
+   
+    // Règles pour Signets
+    // Collection 'utilisateurs' : documents enfants (id d'utilisateur)
+    match /utilisateurs/{identifiantUtilisateur} {
+        allow read, update, delete: if request.auth != null && request.auth.uid == identifiantUtilisateur;
+      allow create: if request.auth != null
+    }
+    // Collection 'utilisateurs' / sous-collection 'dossiers'
+    match /utilisateurs/{idUtil}/dossiers/{document=**} {
+        allow read, create: if request.auth != null && request.auth.uid == idUtil;
+    }
+   
+    /************************************* Règles pour l'exerice 5 **************************/
+    
+    // Collection 'utilisateurs-ex5' : documents enfants (id d'utilisateur)
+    match /utilisateurs-ex5/{identifiantUtilisateur} {
+        allow read, update, delete: if request.auth != null && request.auth.uid == identifiantUtilisateur;
+      allow create: if request.auth != null
+    }
+    // Collection 'utilisateurs-ex5' : dossiers
+    match /utilisateurs-ex5/{idUtil}/dossiers/{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == idUtil;
+    }
+    
+    /************************************* Règles pour l'épreuve finale *********************/
+    match /memo-utilisateurs/{idUtil} {
+    	allow read, update, delete: if request.auth != null &&
+    	request.auth.uid == idUtil;
+    	allow create: if request.auth != null;
+    }
+
+    match /memo-utilisateurs/{idUtil}/memo-taches/{document=**}{
+    	allow read, write: if request.auth != null &&
+    	request.auth.uid == idUtil;
+    }
+  }
+}
