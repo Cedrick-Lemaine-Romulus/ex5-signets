@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.635ed7df.chunk.css",
-    "main.js": "/static/js/main.e05fe111.chunk.js",
-    "runtime-main.js": "/static/js/runtime-main.92615292.js",
-    "static/css/2.6da788ff.chunk.css": "/static/css/2.6da788ff.chunk.css",
-    "static/js/2.bea6babb.chunk.js": "/static/js/2.bea6babb.chunk.js",
-    "index.html": "/index.html",
-    "static/js/2.bea6babb.chunk.js.LICENSE.txt": "/static/js/2.bea6babb.chunk.js.LICENSE.txt",
-    "static/media/couverture.2dc9ece9.webp": "/static/media/couverture.2dc9ece9.webp"
+    "main.css": "/ex5-signets/static/css/main.635ed7df.chunk.css",
+    "main.js": "/ex5-signets/static/js/main.e05fe111.chunk.js",
+    "runtime-main.js": "/ex5-signets/static/js/runtime-main.4c512b41.js",
+    "static/css/2.6da788ff.chunk.css": "/ex5-signets/static/css/2.6da788ff.chunk.css",
+    "static/js/2.69acc94b.chunk.js": "/ex5-signets/static/js/2.69acc94b.chunk.js",
+    "index.html": "/ex5-signets/index.html",
+    "static/js/2.69acc94b.chunk.js.LICENSE.txt": "/ex5-signets/static/js/2.69acc94b.chunk.js.LICENSE.txt",
+    "static/media/couverture.2dc9ece9.webp": "/ex5-signets/static/media/couverture.2dc9ece9.webp"
   },
   "entrypoints": [
-    "static/js/runtime-main.92615292.js",
+    "static/js/runtime-main.4c512b41.js",
     "static/css/2.6da788ff.chunk.css",
-    "static/js/2.bea6babb.chunk.js",
+    "static/js/2.69acc94b.chunk.js",
     "static/css/main.635ed7df.chunk.css",
     "static/js/main.e05fe111.chunk.js"
   ]
