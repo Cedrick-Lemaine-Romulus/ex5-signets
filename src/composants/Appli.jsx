@@ -9,12 +9,10 @@ import AjouterDossier from './AjouterDossier';
 import * as crudDossiers from '../services/crud-dossiers';
 import * as crudUtilisateurs from '../services/crud-utilisateurs';
 
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-
 export default function Appli() {
+  // État du triage
+  const etatTriage = useState(0);
+
   // État de l'utilisateur (pas connecté = null / connecté = objet FB-Auth spécial)
   const [utilisateur, setUtilisateur] = useState(null);
 
@@ -53,29 +51,7 @@ export default function Appli() {
     // Fermer la boîte de dialogue
     setOuvertAD(false);
   }
-
-  const [triage, setTriage] = useState('');
-
-  const changementSelection = (event) => {
-    setTriage(event.target.value);
-    console.warn(event.target.value);
     
-    crudDossiers.lireTout(utilisateur.uid);
-
-    if (event.target.value == 1) {
-      console.warn("Date de modification descendante");
-      // crudDossiers.lireTout(utilisateur.uid).orderBy('datemodif', 'desc');
-    }
-    else if(event.target.value == 2) {
-      console.warn("Nom de dossier ascendant");
-      // crudDossiers.lireTout(utilisateur.uid).orderBy('nom', 'asc');
-    }
-    else if(event.target.value == 3) {
-      console.warn("Nom de dossier descendant");
-      // crudDossiers.lireTout(utilisateur.uid).orderBy('nom', 'desc');
-    }
-  };
-
   return (
     <div className="Appli">
       {
@@ -84,19 +60,8 @@ export default function Appli() {
           <>
             <Entete utilisateur={utilisateur} />
 
-            <FormControl>
-              <InputLabel shrink>
-                Tri des dossiers
-              </InputLabel>
-              <Select value={triage} displayEmpty onChange={changementSelection}>
-                <MenuItem value="" disabled>Sélection triage</MenuItem>
-                <MenuItem value={1}>Date de modification descendante</MenuItem>
-                <MenuItem value={2}>Nom de dossier ascendant</MenuItem>
-                <MenuItem value={3}>Nom de dossier descendant</MenuItem>
-              </Select>
-          </FormControl>
             <section className="contenu-principal">
-              <ListeDossiers utilisateur={utilisateur} etatDossiers={etatDossiers} />
+              <ListeDossiers utilisateur={utilisateur} etatDossiers={etatDossiers} etatTriage={etatTriage} />
               <AjouterDossier ouvert={ouvertAD} setOuvert={setOuvertAD} gererAjout={gererAjouter} />
               <Fab onClick={() => setOuvertAD(true)} className="ajoutRessource" color="primary" aria-label="Ajouter dossier">
                 <AddIcon />

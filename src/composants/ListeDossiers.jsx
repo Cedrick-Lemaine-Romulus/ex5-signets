@@ -3,9 +3,21 @@ import Dossier from './Dossier';
 import * as crudDossiers from '../services/crud-dossiers';
 import { useState, useEffect } from 'react';
 
-export default function ListeDossiers({utilisateur, etatDossiers}) {
+
+
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+
+export default function ListeDossiers({utilisateur, etatDossiers, etatTriage}) {
   // État des dossiers (vient du composant Appli)
   const [dossiers, setDossiers] = etatDossiers;
+
+  const [triage, setTriage] = etatTriage;
+  const changementSelection = (event) => {
+    setTriage(event.target.value);
+  };
 
   // Lire les dossiers dans Firestore et forcer le réaffichage du composant
   // Remarquez que ce code est dans un useEffect() car on veut l'exécuter 
@@ -15,10 +27,10 @@ export default function ListeDossiers({utilisateur, etatDossiers}) {
   // forcé par la mutation de l'état des dossiers
   useEffect(
     () => {
-      crudDossiers.lireTout(utilisateur.uid).then(
+      crudDossiers.lireTout(utilisateur.uid, triage).then(
         dossiers => setDossiers(dossiers)
       )
-    }, []
+    }, [triage]
   );
 
   /**
@@ -37,6 +49,20 @@ export default function ListeDossiers({utilisateur, etatDossiers}) {
   
   return (
     <>
+    <FormControl style={{margin: "10px", minWidth: "160px"}}>
+        <InputLabel id="triageId">Tri des dossiers</InputLabel>
+        <Select
+          labelId="triageId"
+          id="triage"
+          value={triage}
+          defaultValue={'"datemodif", "desc"'}
+          onChange={changementSelection}
+        >
+          <MenuItem value={0}>Date de modification descendante</MenuItem>
+          <MenuItem value={1}>Nom de dossier ascendant</MenuItem>
+          <MenuItem value={2}>Nom de dossier descendant</MenuItem>
+        </Select>
+      </FormControl>
     <ul className="ListeDossiers">
       {
         (dossiers.length > 0) ?
